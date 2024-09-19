@@ -1,6 +1,6 @@
 get_item = """SELECT "Item_Key"
 FROM "Item"
-WHERE "Item_Descr" = %s AND "Item_ItemTyp_Key" = %s AND "Item_SubType_Key" = %s;
+WHERE "Item_Descr" = %s AND "Item_ItemTyp_Key" = %s AND "Item_SubType_Key" = %s AND "Item_Purpose_Key" = %s;
 """
 
 create_item = """

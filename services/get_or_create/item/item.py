@@ -17,7 +17,7 @@ def get_or_create_item(conn, item_descr, gst, item_type_key, item_subtype_key, p
             logger.info(
                 f"Attempting to retrieve item with description: '{item_descr}', item type key: '{item_type_key}', and subtype key: '{item_subtype_key}'")
             cursor.execute(
-                get_item, (item_descr, item_type_key, item_subtype_key))
+                get_item, (item_descr, item_type_key, item_subtype_key, purpose_key))
             result = cursor.fetchone()
 
             if result:
