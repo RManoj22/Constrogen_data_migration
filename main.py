@@ -1,8 +1,9 @@
-import config 
+import config
 from utils.logger import logger
-from services.load_items import load_items
-from services.load_vendors import load_vendors
-from services.load_projects import load_projects
+from services.loaders.load_bills import load_bills
+from services.loaders.load_items import load_items
+from services.loaders.load_vendors import load_vendors
+from services.loaders.load_projects import load_projects
 from database.db_connection import get_db_connection
 
 if __name__ == "__main__":
@@ -24,6 +25,9 @@ if __name__ == "__main__":
 
             if config.LOAD_VENDORS:
                 counters["vendors"] = load_vendors(conn)
+
+            if config.LOAD_BILLS:
+                counters["purchase order"] = load_bills(conn)
 
             logger.info(f"Counters: {counters}")
 

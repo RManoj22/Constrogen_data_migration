@@ -1,10 +1,11 @@
 from utils.logger import logger
-from utils.excel_readers.read_items_data import read_items_data
 from services.get_or_create.uom import get_or_create_uom
+from utils.excel_readers.read_items_data import read_items_data
 from services.get_or_create.item.item import get_or_create_item
 from services.get_or_create.purpose import get_or_create_purpose
 from services.get_or_create.item_type import get_or_create_item_type
 from services.get_or_create.item_subtype.item_subtype import get_or_create_item_subtype
+from services.get_or_create.item_purpose.item_purpose import get_or_create_item_purpose
 
 
 def load_items(conn):
@@ -19,7 +20,8 @@ def load_items(conn):
         "uom": {"created": 0, "existing": 0},
         "purpose": {"created": 0, "existing": 0},
         "item_subtype": {"created": 0, "existing": 0},
-        "item": {"created": 0, "existing": 0}
+        "item": {"created": 0, "existing": 0},
+        "item purpose": {"created": 0, "existing": 0}
     }
 
     for item_type_descr, item_subtype_descr, item_descr, purpose, uom, item_subtype_gst, item_subtype_spec in pairs:
@@ -67,13 +69,22 @@ def load_items(conn):
             f"The key of the purpose '{purpose}' where item type '{item_type_descr}' is: '{purpose_key}'")
 
         item_key, created = get_or_create_item(
-            conn, item_descr, item_subtype_gst, item_type_key, item_subtype_key, purpose_key, item_subtype_spec_keys[item_subtype_key], item_subtype_spec, uom_keys[item_type_key])
+            conn, item_descr, item_subtype_gst, item_type_key, item_subtype_key, item_subtype_spec_keys[item_subtype_key], item_subtype_spec, uom_keys[item_type_key])
         if created:
             counters["item"]["created"] += 1
         else:
             counters["item"]["existing"] += 1
         logger.info(
             f"The key of the item '{item_descr}' where item type '{item_type_descr}' is: '{item_key}'")
+
+        item_purpose_key, created = get_or_create_item_purpose(
+            conn, item_key, item_descr, purpose_key, purpose)
+        if created:
+            counters["item purpose"]["created"] += 1
+        else:
+            counters["item purpose"]["existing"] += 1
+        logger.info(
+            f"The item purpose key of the item '{item_descr}' and purpose '{purpose}' is: '{item_purpose_key}'")
 
     conn.commit()
     logger.info(

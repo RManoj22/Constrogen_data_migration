@@ -1,6 +1,7 @@
 import pandas as pd
 from utils.logger import logger
 
+
 def convert_values(value_str):
     try:
         if pd.isna(value_str):

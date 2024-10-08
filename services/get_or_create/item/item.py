@@ -11,13 +11,13 @@ created_by = CREATED_BY
 created_at = CREATED_AT
 
 
-def get_or_create_item(conn, item_descr, gst, item_type_key, item_subtype_key, purpose_key, item_subtype_spec_keys, item_subtype_spec, uom_keys):
+def get_or_create_item(conn, item_descr, gst, item_type_key, item_subtype_key, item_subtype_spec_keys, item_subtype_spec, uom_keys):
     try:
         with conn.cursor() as cursor:
             logger.info(
                 f"Attempting to retrieve item with description: '{item_descr}', item type key: '{item_type_key}', and subtype key: '{item_subtype_key}'")
             cursor.execute(
-                get_item, (item_descr, item_type_key, item_subtype_key, purpose_key))
+                get_item, (item_descr, item_type_key, item_subtype_key))
             result = cursor.fetchone()
 
             if result:
@@ -29,7 +29,7 @@ def get_or_create_item(conn, item_descr, gst, item_type_key, item_subtype_key, p
                 logger.info(
                     f"Item '{item_descr}' where item type key: '{item_type_key}', and subtype key: '{item_subtype_key}' is not found, creating new entry.")
                 cursor.execute(create_item, (item_descr, 'I', gst, created_by,
-                               created_at, client_id, item_type_key, item_subtype_key, purpose_key))
+                               created_at, client_id, item_type_key, item_subtype_key))
                 item_key = cursor.fetchone()[0]
                 logger.info(
                     f"Created new item '{item_descr}' where item type key: '{item_type_key}', and subtype key: '{item_subtype_key}' with key: '{item_key}'")

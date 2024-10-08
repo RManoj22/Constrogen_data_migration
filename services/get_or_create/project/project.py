@@ -10,7 +10,7 @@ created_by = CREATED_BY
 created_at = CREATED_AT
 
 
-def get_or_create_project(conn, description, status, units, address, state_key, city_key, project_type_key, project_code):
+def get_or_create_project(conn, description, status=None, units=None, address=None, state_key=None, city_key=None, project_type_key=None, project_code=None):
     try:
         with conn.cursor() as cursor:
             logger.info(

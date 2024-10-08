@@ -55,7 +55,7 @@ def read_items_data():
         df['Item sub type'] = df['Item sub type'].apply(convert_values)
         df['Purpose'] = df['Purpose'].apply(convert_values)
         df['Item sub type GST'] = df['Item sub type GST'].fillna(0)
-        df['Item description'] = df['Item description']
+        df['Item description'] = df['Item description'].apply(convert_values)
 
         def process_uom(uom_str, row_index):
             try:
