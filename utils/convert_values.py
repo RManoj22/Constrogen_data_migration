@@ -12,3 +12,8 @@ def convert_values(value_str):
     except Exception as e:
         logger.error(f"Error parsing value: {e}")
         raise ValueError("Error parsing value") from e
+
+
+def strip_spaces(value):
+    """Helper function to strip spaces from a value."""
+    return value if pd.isna(value) else str(value).strip()

@@ -45,5 +45,33 @@ BILLS_FILE_NAME = 'filtered_bill_header.xlsx'
 BILLS_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\bills\placid\placid bill header.xlsx'
 SECOND_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\bills\placid\Perfect Placid Stock Record.xlsx'
 GUI_OUTPUT_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\bills\gui_output\output_file.xlsx'
-# LOAD_BILLS = False
-LOAD_BILLS = True
+LOAD_BILLS = False
+# LOAD_BILLS = True
+
+
+# Vendor invoice and payment voucher
+
+PAYMENT_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\payment\Vendor Payment.xlsx'
+LOAD_VENDOR_INVOICE_AND_VOUCHER = False
+# LOAD_VENDOR_INVOICE_AND_VOUCHER = True
+
+
+# Extra Expense
+
+EXPENSES_HEADER_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\bills\filtered_bills\filtered_expenses_placid.xlsx'
+EXPENSES_DETAIL_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\bills\placid\Perfect Placid Stock Record.xlsx'
+MODE_OF_PAYMENT = 'Cash'
+LOAD_EXTRA_EXPENSE = False
+# LOAD_EXTRA_EXPENSE = True
+
+
+# Contractor
+
+CONTRACTORS_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\contractors\Contractors.xlsx'
+LOAD_CONTRACTORS = False
+# LOAD_CONTRACTORS = True
+
+CONTRACTOR_PAYMENTS_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\payment\Contractor Payment.xlsx'
+CONTRACTOR_PAYMENT_MODE = 'Cash'
+LOAD_CONTRACTOR_INVOICE_AND_VOUCHER = True
+# LOAD_CONTRACTOR_INVOICE_AND_VOUCHER = False

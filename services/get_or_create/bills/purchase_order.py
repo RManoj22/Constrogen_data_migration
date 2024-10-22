@@ -1,29 +1,15 @@
 import psycopg2
 from utils.logger import logger
-from queries.bills.purchase_order import get_purchase_order, create_purchase_order
+from utils.get_last_number import get_last_number
 from config import CLIENT_ID, COMPANY_ID, CREATED_BY, CREATED_AT
+from queries.bills.purchase_order import get_purchase_order, create_purchase_order
+from queries.last_number.vendor.vendor_po import get_last_vendor_po_number
 
 
 client_id = CLIENT_ID
 company_id = COMPANY_ID
 created_by = CREATED_BY
 created_at = CREATED_AT
-
-
-def get_last_po_number(conn):
-    try:
-        with conn.cursor() as cursor:
-            cursor.execute("""
-                SELECT "PO_Number" FROM "PurchaseOrder"
-                WHERE "PO_Company_ID" = %s AND "PO_Client_ID" = %s
-                ORDER BY "PO_Key" DESC LIMIT 1
-            """, (company_id, client_id))
-            result = cursor.fetchone()
-            # Start from 1000 to increment to 1001 later
-            return int(result[0]) if result else 1000
-    except psycopg2.Error as e:
-        logger.error(f"Error fetching the last PO number: {e}")
-        raise
 
 
 def get_or_create_purchase_order(conn,
@@ -42,7 +28,8 @@ def get_or_create_purchase_order(conn,
                     f"PO with project_key {project_key}, vendor_key {vendor_key}, desc {bill_no}, date {po_date}, net {net_amount}, gst {gst_amount}, client id {client_id} and company id {company_id} found with key {purchase_order_key}")
                 return purchase_order_key, False
             else:
-                last_po_number = get_last_po_number(conn)
+                last_po_number = get_last_number(
+                    conn, get_last_vendor_po_number, company_id, client_id)
                 next_po_number = str(last_po_number + 1)
 
                 logger.info(

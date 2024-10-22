@@ -1,16 +1,11 @@
 import pandas as pd
 from utils.logger import logger
 from ..validate_file import validate_file
-from ..convert_values import convert_values
+from ..convert_values import convert_values, strip_spaces
 from config import BILLS_EXCEL_FILE_PATH, SECOND_EXCEL_FILE_PATH
 
 file_path = BILLS_EXCEL_FILE_PATH
 second_file_path = SECOND_EXCEL_FILE_PATH
-
-
-def strip_spaces(value):
-    """Helper function to strip spaces from a value."""
-    return value if pd.isna(value) else str(value).strip()
 
 
 def calculate_gst_and_net_amount(bill_amount, final_bill_amount):
