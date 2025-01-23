@@ -10,7 +10,7 @@ created_by = CREATED_BY
 created_at = CREATED_AT
 
 
-def get_or_create_project(conn, description, status=None, units=None, address=None, state_key=None, city_key=None, project_type_key=None, project_code=None):
+def get_or_create_project(conn, description, status=None, units=None, address=None, state_key=None, city_key=None, project_type_key=None):
     try:
         with conn.cursor() as cursor:
             logger.info(
@@ -26,7 +26,7 @@ def get_or_create_project(conn, description, status=None, units=None, address=No
             else:
                 logger.info(
                     f"Project '{description}' not found, creating new entry.")
-                cursor.execute(create_project, (project_code, description, address, units, created_by,
+                cursor.execute(create_project, (description, address, units, created_by,
                                created_at, city_key, client_id, company_id, status, project_type_key, state_key))
                 project_key = cursor.fetchone()[0]
                 logger.info(

@@ -14,8 +14,7 @@ def read_vendors_data():
         logger.info(f"Reading Excel file from path: {file_path}")
         df = pd.read_excel(file_path)
 
-        required_columns = ["ItemVendorName", "ItemTypeList",
-                            "ItemVendorType"]
+        required_columns = ["ItemVendorName", "ItemTypeList"]
         for col in required_columns:
             if col not in df.columns:
                 logger.error(f"Excel file does not contain '{col}' column")
@@ -32,9 +31,7 @@ def read_vendors_data():
         df['ItemTypeList'] = df.apply(lambda row: process_item_types(
             row['ItemTypeList'], row.name), axis=1)
         df['ItemVendorName'] = df['ItemVendorName'].apply(convert_values)
-        df['ItemVendorType'] = df['ItemVendorType'].apply(convert_values)
-        pairs = list(zip(df['ItemVendorName'],
-                     df['ItemTypeList'], df['ItemVendorType']))
+        pairs = list(zip(df['ItemVendorName'], df['ItemTypeList']))
         return pairs
 
     except Exception as e:

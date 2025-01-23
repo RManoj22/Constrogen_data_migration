@@ -29,12 +29,11 @@ def load_vendors(conn):
         "vendor": {"created": 0, "existing": 0},
         "city": {"created": 0, "existing": 0},
         "state": {"created": 0, "existing": 0},
-        "vendor_type": {"created": 0, "existing": 0},
         "item_type": {"created": 0, "existing": 0},
         "vendor_item_type": {"created": 0, "existing": 0}
     }
 
-    for vendors_name, vendor_item_type, vendor_type in pairs:
+    for vendors_name, vendor_item_type in pairs:
         state_key, created = get_or_create_state(conn, state_id, state)
         if created:
             counters["state"]["created"] += 1
@@ -49,17 +48,9 @@ def load_vendors(conn):
             counters["city"]["existing"] += 1
         logger.info(f"The key of the city '{city}' is: '{city_key}'")
 
-        vendor_type_key, created = get_or_create_vendor_type(
-            conn, vendor_type)
-        if created:
-            counters["vendor_type"]["created"] += 1
-        else:
-            counters["vendor_type"]["existing"] += 1
-        logger.info(
-            f"The key of the vendor type '{vendor_type}' is: '{vendor_type_key}'")
 
         vendor_key, created = get_or_create_vendor(
-            conn, vendors_name, vendor_type_key, state_key, city_key
+            conn, vendors_name, state_key, city_key
         )
         if created:
             counters["vendor"]["created"] += 1

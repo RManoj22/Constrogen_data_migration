@@ -10,9 +10,7 @@ created_at = CREATED_AT
 default_vendor_key = DEFAULT_VENDOR_KEY
 
 
-def get_or_create_vendor(conn, name, default_vendor=None, vendor_type_key=None, state_key=None, city_key=None, default_vendor_list=None):
-    if default_vendor_list is None:
-        default_vendor_list = []
+def get_or_create_vendor(conn, name, state_key=None, city_key=None):
 
     try:
         with conn.cursor() as cursor:
@@ -27,18 +25,11 @@ def get_or_create_vendor(conn, name, default_vendor=None, vendor_type_key=None, 
                     f"Vendor with ID '{name}' found with key: '{vendor_key}'")
                 return vendor_key, False
             else:
-                if default_vendor:
-                    logger.info(
-                        f"Vendor '{name}' not found, returning default vendor.")
-
-                    # Add vendor name to default vendor list for tracking
-                    default_vendor_list.append(name)
-                    return default_vendor_key, False
 
                 logger.info(f"Vendor '{name}' not found, creating new entry.")
 
                 cursor.execute(create_vendor, (name, created_by, created_at,
-                               city_key, client_id, company_id, state_key, vendor_type_key))
+                               city_key, client_id, company_id, state_key))
                 vendor_key = cursor.fetchone()[0]
                 logger.info(
                     f"Created new vendor '{name}' with key: '{vendor_key}'")

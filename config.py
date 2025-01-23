@@ -22,9 +22,7 @@ STATE_ID = 'TN'
 # Project
 PROJECT_FILE_NAME = 'Projects.xlsx'
 PROJECTS_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\projects\Projects.xlsx'
-PROJECT_CODE_COUNTER = 1
 PROJECT_TYPE = 'Construction'
-PROJECT_CODE = f"2024_{PROJECT_CODE_COUNTER}"
 LOAD_PROJECTS = False
 # LOAD_PROJECTS = True
 
