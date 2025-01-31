@@ -12,26 +12,26 @@ def get_or_create_item_type(conn, description):
     try:
         with conn.cursor() as cursor:
             logger.info(
-                f"Attempting to retrieve item type with description: '{description}'")
-            cursor.execute(get_item_type, (description,))
+                f"Attempting to retrieve item type with description: '{description}' with client id {client_id}")
+            cursor.execute(get_item_type, (description, client_id))
             result = cursor.fetchone()
 
             if result:
                 item_type_key = result[0]
                 logger.info(
-                    f"Item type '{description}' found with key: '{item_type_key}'")
+                    f"Item type '{description}' with client id {client_id} found with key: '{item_type_key}'")
                 return item_type_key, False
             else:
                 logger.info(
-                    f"Item type '{description}' not found, creating new entry.")
+                    f"Item type '{description}' not found with client id {client_id}, creating new entry.")
                 cursor.execute(create_item_type, (description, created_by,
                                created_at, client_id))
                 item_type_key = cursor.fetchone()[0]
                 logger.info(
-                    f"Created new item type '{description}' with key: '{item_type_key}'")
+                    f"Created new item type '{description}' with client id {client_id} with key: '{item_type_key}'")
                 return item_type_key, True
 
     except psycopg2.Error as e:
         logger.error(
-            f"Database error while processing item type '{description}': {e}")
+            f"Database error while processing item type '{description}' with client id {client_id}: {e}")
         raise

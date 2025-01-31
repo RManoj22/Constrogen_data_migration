@@ -1,7 +1,7 @@
 get_project = """
 SELECT "Proj_Key" 
 FROM "Project" 
-WHERE "Proj_Name" = %s
+WHERE "Proj_Name" = %s AND "Proj_Client_ID" = %s AND "Proj_Company_ID" = %s
 """
 
 create_project = """

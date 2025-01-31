@@ -1,7 +1,7 @@
 get_vendor = """
 SELECT "Vend_Key" 
 FROM "Vendor" 
-WHERE "Vend_Name" = %s;
+WHERE "Vend_Name" = %s AND "Vend_Client_ID" = %s AND "Vend_Company_ID" = %s;
 """
 
 create_vendor = """

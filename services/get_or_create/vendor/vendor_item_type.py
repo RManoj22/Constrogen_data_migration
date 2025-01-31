@@ -13,29 +13,29 @@ def get_or_create_vendor_item_type(conn, vendor_key, item_type_key):
     try:
         with conn.cursor() as cursor:
             logger.info(
-                f"Attempting to retrieve vendor item type with vendor key: '{vendor_key}' and item type key: '{item_type_key}'")
+                f"Attempting to retrieve vendor item type with vendor key: '{vendor_key}' and item type key: '{item_type_key}' with client id {client_id} and company id {company_id}")
 
             cursor.execute(get_vendor_item_type,
-                            (vendor_key, item_type_key))
+                            (vendor_key, item_type_key, client_id, company_id))
             result = cursor.fetchone()
 
             if result:
                 vendor_item_type_key = result[0]
                 logger.info(
-                    f"Vendor item type with vendor key '{vendor_key}' and item type key '{item_type_key}' found with key: '{vendor_item_type_key}'")
+                    f"Vendor item type with vendor key '{vendor_key}', item type key '{item_type_key}' with client id {client_id} and company id {company_id} found with key: '{vendor_item_type_key}'")
                 return vendor_item_type_key, False
             else:
                 logger.info(
-                    f"Vendor item type with vendor key '{vendor_key}' and item type key '{item_type_key}' not found, creating new entry.")
+                    f"Vendor item type with vendor key '{vendor_key}', item type key '{item_type_key}' with client id {client_id} and company id {company_id} not found, creating new entry.")
 
                 cursor.execute(create_vendor_item_type,
                                 (vendor_key, item_type_key, client_id, company_id))
                 vendor_item_type_key = cursor.fetchone()[0]
                 logger.info(
-                    f"Created new vendor item type for vendor key '{vendor_key}' and item type key '{item_type_key}' with key: '{vendor_item_type_key}'")
+                    f"Created new vendor item type for vendor key '{vendor_key}', item type key '{item_type_key} with client id {client_id} and company id {company_id}' with key: '{vendor_item_type_key}'")
                 return vendor_item_type_key, True
 
     except psycopg2.Error as e:
         logger.error(
-            f"Database error while processing vendor item type with vendor key '{vendor_key}' and item type key '{item_type_key}': {e}")
+            f"Database error while processing vendor item type with vendor key '{vendor_key}', item type key '{item_type_key}' with client id {client_id} and company id {company_id}: {e}")
         raise

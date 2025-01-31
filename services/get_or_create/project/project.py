@@ -14,25 +14,25 @@ def get_or_create_project(conn, description, status=None, units=None, address=No
     try:
         with conn.cursor() as cursor:
             logger.info(
-                f"Attempting to retrieve project with description: '{description}'")
-            cursor.execute(get_project, (description,))
+                f"Attempting to retrieve project with description: '{description}' with client id {client_id} and company id {company_id}")
+            cursor.execute(get_project, (description, client_id, company_id,))
             result = cursor.fetchone()
 
             if result:
                 project_key = result[0]
                 logger.info(
-                    f"Project '{description}' found with key: '{project_key}'")
+                    f"Project '{description}' found  with client id {client_id} and company id {company_id} with key: '{project_key}'")
                 return project_key, False
             else:
                 logger.info(
-                    f"Project '{description}' not found, creating new entry.")
+                    f"Project '{description}' not found with client id {client_id} and company id {company_id}, creating new entry.")
                 cursor.execute(create_project, (description, address, units, created_by,
                                created_at, city_key, client_id, company_id, status, project_type_key, state_key))
                 project_key = cursor.fetchone()[0]
                 logger.info(
-                    f"Project '{description}' created with key: '{project_key}'")
+                    f"Project '{description}' with client id {client_id} and company id {company_id} created with key: '{project_key}'")
                 return project_key, True
     except psycopg2.Error as e:
         logger.error(
-            f"Database error while processing project '{description}': {e}")
+            f"Database error while processing project '{description}' with client id {client_id} and company id {company_id}: {e}")
         raise

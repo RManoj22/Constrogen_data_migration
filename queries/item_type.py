@@ -1,7 +1,7 @@
 get_item_type = """
 SELECT "ItemTyp_Key" 
 FROM "ItemType" 
-WHERE "ItemTyp_Descr" = %s;
+WHERE "ItemTyp_Descr" = %s AND "ItemTyp_Client_ID" = %s;
 """
 
 create_item_type = """

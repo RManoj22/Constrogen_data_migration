@@ -1,7 +1,7 @@
 get_project_type = """
 SELECT "ProjTyp_Key" 
 FROM "ProjectType" 
-WHERE "ProjTyp_Descr" = %s AND "ProjTyp_Company_ID" = %s;
+WHERE "ProjTyp_Descr" = %s AND "ProjTyp_Company_ID" = %s AND "ProjTyp_Client_ID" = %s;
 """
 
 create_project_type = """

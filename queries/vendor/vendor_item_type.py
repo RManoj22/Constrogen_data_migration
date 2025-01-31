@@ -2,7 +2,9 @@ get_vendor_item_type = """
 SELECT "VendItemType_Key" 
 FROM "VendorItemType" 
 WHERE "VendItemType_Vend_Key" = %s
-AND  "VendItemType_Item_Type_Key" = %s;
+AND  "VendItemType_Item_Type_Key" = %s
+AND  "VendItemType_Client_ID" = %s
+AND  "VendItemType_Company_ID" = %s;
 """
 
 create_vendor_item_type = """
