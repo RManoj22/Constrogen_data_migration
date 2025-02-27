@@ -4,7 +4,7 @@ from datetime import datetime
 current_directory = os.getcwd()
 
 CLIENT_ID = 1
-COMPANY_ID = 2
+COMPANY_ID = 1
 CREATED_BY = 'admin'
 CREATED_AT = datetime.now()
 
@@ -35,8 +35,8 @@ LOAD_VENDORS = False
 # Items
 ITEMS_FILE_NAME = 'Items.xlsx'
 ITEMS_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\items\Items.xlsx'
-# LOAD_ITEMS = False
-LOAD_ITEMS = True
+LOAD_ITEMS = False
+# LOAD_ITEMS = True
 
 # Vendor purchase order and items
 BILLS_FILE_NAME = 'filtered_bill_header.xlsx'
@@ -73,3 +73,8 @@ CONTRACTOR_PAYMENTS_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\p
 CONTRACTOR_PAYMENT_MODE = 'Cash'
 # LOAD_CONTRACTOR_INVOICE_AND_VOUCHER = True
 LOAD_CONTRACTOR_INVOICE_AND_VOUCHER = False
+
+
+BASE_TABLE_DATA_EXCEL_FILE_PATH = r'D:\IGS\Constrogen_data_migration\files\base_table\Base Table.xlsx'
+LOAD_BASE_TABLE_DATA = True
+# LOAD_BASE_TABLE_DATA = False
